@@ -40,8 +40,8 @@ class Node():
         self.next = next
 
 class MyLinkedList():
-    def __init__(self, head, length):
-        self.head = Node(1, None)
+    def __init__(self, headVal):
+        self.head = Node(val=headVal)
         self.length = 1
 
     def get(self, index):
@@ -83,7 +83,7 @@ class MyLinkedList():
 
 # test below
 if __name__ == "__main__":
-    obj = MyLinkedList(1, None)
+    obj = MyLinkedList(9)
     param_1 = obj.get(0)
     obj.addAtHead(4)
     obj.addAtTail(7)
