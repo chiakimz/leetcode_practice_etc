@@ -50,8 +50,15 @@ class MyLinkedList():
             if item.next == None:
                 return -1
             item = item.next
-        return item    
+        return item.val    
 
+    def getNode(self, index):
+        item = self.head
+        for i in range(index):
+            if item.next == None:
+                return -1
+            item = item.next
+        return item
         
     def addAtHead(self, val):
         currentHead = self.head
@@ -67,7 +74,7 @@ class MyLinkedList():
             self.head = Node(val, None)
             self.length = 1
         else:
-            currentTail = self.get(self.length - 1)
+            currentTail = self.getNode(self.length - 1)
             currentTail.next = Node(val, None)
             self.length += 1
 
@@ -75,10 +82,9 @@ class MyLinkedList():
         if index == 0:
             self.addAtHead(val)
         else:    
-            target = self.get(index - 1)
-            if index == self.length - 1:
-                target.next.next = Node(val, None)    
-                self.length +=1
+            target = self.getNode(index - 1)
+            if index == self.length:
+                self.addAtTail(val)
             elif target != -1 and target.next != None:
                 newNextNext = target.next
                 target.next = Node(val, newNextNext)
@@ -89,7 +95,7 @@ class MyLinkedList():
             self.head = self.head.next
             self.length -= 1
         else:    
-            target = self.get(index - 1)
+            target = self.getNode(index - 1)
             if target != -1 and target.next != None:
                 target.next = target.next.next
                 self.length -= 1
@@ -99,11 +105,18 @@ class MyLinkedList():
 # test below
 if __name__ == "__main__":
     obj = MyLinkedList()
-    param_1 = obj.get(0)
+    obj.addAtHead(7)
+    obj.addAtHead(2)
+    obj.addAtHead(1)
+    obj.addAtIndex(3,0)
+    obj.deleteAtIndex(2)
+    obj.addAtHead(6)
+    obj.addAtTail(4)
+    obj.get(4)
     obj.addAtHead(4)
-    # obj.addAtTail(7)
-    # obj.addAtTail(5)
-    # obj.addAtTail(2)
-    obj.addAtIndex(0,6)
-    obj.deleteAtIndex(1)
+    obj.addAtIndex(5,0)
+    obj.addAtHead(6)
     obj
+
+["MyLinkedList","addAtHead","addAtHead","addAtHead","addAtIndex","deleteAtIndex","addAtHead","addAtTail","get","addAtHead","addAtIndex","addAtHead"]
+[[],[7],[2],[1],[3,0],[2],[6],[4],[4],[4],[5,0],[6]]
