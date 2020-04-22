@@ -40,7 +40,7 @@ class Node():
         self.next = next
 
 class MyLinkedList():
-    def __init__(self, headVal):
+    def __init__(self, headVal=None):
         self.head = Node(val=headVal)
         self.length = 1
 
@@ -55,40 +55,55 @@ class MyLinkedList():
         
     def addAtHead(self, val):
         currentHead = self.head
-        self.head = Node(val, currentHead)
-        self.length += 1
+        if currentHead.val == None and self.length == 1:
+            self.head = Node(val, None)
+            self.length = 1
+        else:    
+            self.head = Node(val, currentHead)
+            self.length += 1
         
     def addAtTail(self, val):
-        currentTail = self.get(self.length - 1)
-        currentTail.next = Node(val, None)
-        self.length += 1
+        if self.head.val == None and self.length == 1:
+            self.head = Node(val, None)
+            self.length = 1
+        else:
+            currentTail = self.get(self.length - 1)
+            currentTail.next = Node(val, None)
+            self.length += 1
 
     def addAtIndex(self, index, val):
-        target = self.get(index - 1)
-        if index == self.length - 1:
-            target.next.next = Node(val, None)    
-            self.length +=1
-        elif target != -1 and target.next != None:
-            newNextNext = target.next
-            target.next = Node(val, newNextNext)
-            self.length+= 1
+        if index == 0:
+            self.addAtHead(val)
+        else:    
+            target = self.get(index - 1)
+            if index == self.length - 1:
+                target.next.next = Node(val, None)    
+                self.length +=1
+            elif target != -1 and target.next != None:
+                newNextNext = target.next
+                target.next = Node(val, newNextNext)
+                self.length+= 1
 
     def deleteAtIndex(self, index):
-        target = self.get(index - 1)
-        if target != -1 and target.next != None:
-            target.next = target.next.next
-        self.length -= 1
+        if index == 0:
+            self.head = self.head.next
+            self.length -= 1
+        else:    
+            target = self.get(index - 1)
+            if target != -1 and target.next != None:
+                target.next = target.next.next
+                self.length -= 1
 
 # Your MyLinkedList object will be instantiated and called as such:
 
 # test below
 if __name__ == "__main__":
-    obj = MyLinkedList(9)
+    obj = MyLinkedList()
     param_1 = obj.get(0)
     obj.addAtHead(4)
-    obj.addAtTail(7)
-    obj.addAtTail(5)
-    obj.addAtTail(2)
-    obj.addAtIndex(4,6)
-    obj.deleteAtIndex(3)
+    # obj.addAtTail(7)
+    # obj.addAtTail(5)
+    # obj.addAtTail(2)
+    obj.addAtIndex(0,6)
+    obj.deleteAtIndex(1)
     obj
